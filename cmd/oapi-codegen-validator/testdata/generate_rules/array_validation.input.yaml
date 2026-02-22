@@ -1,0 +1,17 @@
+openapi: 3.0.0
+info:
+  title: Test
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    TestSchema:
+      type: object
+      properties:
+        field:
+          type: array
+          minItems: 2
+          maxItems: 5
+          uniqueItems: true
+          items:
+            type: string

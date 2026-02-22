@@ -1,0 +1,20 @@
+openapi: 3.0.0
+info:
+  title: Test
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    TestSchema:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+          x-oapi-codegen-extra-tags:
+            validate: required
+        bio:
+          type: string
+          x-oapi-codegen-extra-tags:
+            validate: omitempty

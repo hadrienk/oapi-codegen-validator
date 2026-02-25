@@ -16,5 +16,3 @@ components:
             validate: required
         bio:
           type: string
-          x-oapi-codegen-extra-tags:
-            validate: omitempty

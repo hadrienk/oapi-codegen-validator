@@ -120,11 +120,16 @@ func enrichNode(ctx SchemaContext) error {
 		// NB. Order is important for these tags, so we prepend them after generateTags & injectTags.
 		if slices.Contains(ctx.Schema.Required, propName) {
 			oapiRules = slices.Insert(rules, 0, "required")
-		} else {
+		} else if len(rules) > 0 {
 			oapiRules = slices.Insert(rules, 0, "omitempty")
+		} else {
+			// No rules and not required: nothing useful to emit.
+			delete(propRef.Value.Extensions, tagKey)
+			continue
 		}
 
 		extMap[validate] = strings.Join(oapiRules, ",")
+		propRef.Value.Extensions[tagKey] = extMap
 	}
 
 	return nil
@@ -139,7 +144,6 @@ func extractAndResetValidateRules(s *openapi3.Schema) (rules []string, extMap ma
 	extMap, ok := s.Extensions[tagKey].(map[string]any)
 	if !ok {
 		extMap = make(map[string]any)
-		s.Extensions[tagKey] = extMap
 	}
 	existingVal, _ := extMap[validate].(string)
 

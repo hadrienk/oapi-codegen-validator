@@ -10,5 +10,3 @@ components:
       properties:
         field:
           type: string
-          x-oapi-codegen-extra-tags:
-            validate: omitempty
